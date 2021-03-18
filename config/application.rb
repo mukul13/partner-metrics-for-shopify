@@ -20,7 +20,32 @@ module PartnerMetrics
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-    config.serve_static_assets = true
+    config.load_defaults 6.0
+
+    # Settings in config/environments/* take precedence over those specified here.
+    # Application configuration can go into files in config/initializers
+    # -- all .rb files in that directory are automatically loaded after loading
+    # the framework and any gems in your application.
+
+    # Don't generate system test files.
+    config.autoload_paths += %W[#{config.root}/lib]
+    config.generators.system_tests = nil
+    # config.active_job.queue_adapter = :inline
+    config.active_job.queue_adapter = :sidekiq
+
+    config.middleware.use Rack::Deflater
+    config.middleware.use ActionDispatch::Flash
+    config.middleware.use Rack::MethodOverride
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore
+    config.action_controller.forgery_protection_origin_check = false
+    # config.serve_static_assets = true
+    if Rails.env.development?
+      config.hosts << "mukul.ngrok.io"
+      config.hosts << "tarang.ngrok.io"
+    end
+
+    # config.serve_static_assets = true
 
   end
 end
