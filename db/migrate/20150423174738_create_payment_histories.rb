@@ -1,4 +1,4 @@
-class CreatePaymentHistories < ActiveRecord::Migration
+class CreatePaymentHistories < ActiveRecord::Migration[6.0]
   def change
     create_table :payment_histories do |t|
       t.date :payment_date, index: true
