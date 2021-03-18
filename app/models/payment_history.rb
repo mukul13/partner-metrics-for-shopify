@@ -58,7 +58,7 @@ class PaymentHistory < ActiveRecord::Base
 
     def calculate_metrics
       #We want metrics broken up into their respective charge types (Recurring, OneTime, Affiliate), as well as by which application. We also want calculations for every day, for chart purposes.
-      charge_types = PaymentHistory.uniq.pluck(:charge_type)
+      charge_types = PaymentHistory.all.uniq.pluck(:charge_type)
       latest_calculated_metric = Metric.order("metric_date").last
       if !latest_calculated_metric.blank?
         calculate_from = latest_calculated_metric.metric_date + 1.day
