@@ -30,8 +30,8 @@ module PartnerMetrics
     # Don't generate system test files.
     config.autoload_paths += %W[#{config.root}/lib]
     config.generators.system_tests = nil
-    # config.active_job.queue_adapter = :inline
-    config.active_job.queue_adapter = :sidekiq
+    config.active_job.queue_adapter = :inline
+    # config.active_job.queue_adapter = :sidekiq
 
     config.middleware.use Rack::Deflater
     config.middleware.use ActionDispatch::Flash
